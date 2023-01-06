@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: debit-service
+  output:
+    ansi:
+      enabled: ALWAYS
+  profiles:
+    active: dev
