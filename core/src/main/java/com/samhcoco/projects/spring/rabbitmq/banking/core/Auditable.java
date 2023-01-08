@@ -9,5 +9,5 @@ import java.util.Date;
 @MappedSuperclass
 public class Auditable {
     private Date created;
-    private Date lastModified;
+    private Date modified;
 }

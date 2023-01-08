@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class Account extends Auditable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "balance")

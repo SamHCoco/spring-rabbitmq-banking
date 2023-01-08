@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @MappedSuperclass
 public class Transaction extends Auditable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "amount")

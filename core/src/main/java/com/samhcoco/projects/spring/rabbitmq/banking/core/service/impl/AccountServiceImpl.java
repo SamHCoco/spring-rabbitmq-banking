@@ -1,9 +1,9 @@
 package com.samhcoco.projects.spring.rabbitmq.banking.core.service.impl;
 
-import com.samhcoco.projects.spring.rabbitmq.banking.core.repository.AccountRepository;
-import com.samhcoco.projects.spring.rabbitmq.banking.core.service.AccountService;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.model.Account;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.model.TransactionDto;
+import com.samhcoco.projects.spring.rabbitmq.banking.core.repository.AccountRepository;
+import com.samhcoco.projects.spring.rabbitmq.banking.core.service.AccountService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,10 +12,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -36,6 +33,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public TransactionDto debit(@NonNull TransactionDto transaction) {
+        val now = new Date();
+        transaction.setCreated(now);
+        transaction.setModified(now);
         rabbitTemplate.convertAndSend(bankingExchange, debitTransactionQueue, transaction);
         log.info("DEBIT transaction for account ID {} queued via RabbitMQ.", transaction.getAccountId());
         return transaction;

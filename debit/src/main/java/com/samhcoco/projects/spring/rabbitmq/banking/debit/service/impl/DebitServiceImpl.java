@@ -36,17 +36,19 @@ public class DebitServiceImpl implements DebitService {
             return null;
         }
 
+        // todo - add api call to fetch exchange rage
+        transaction.setExchangeRate(new BigDecimal("1.00"));
+        debitTransactionRepository.save(transaction);
+
         val account = accountRepository.findById(transaction.getAccountId());
         if (isNull(account)) {
             log.error("DEBIT {} failed: No account with ID {} found.", transaction, transaction.getAccountId());
             return null;
         }
 
-        debitTransactionRepository.save(transaction);
-
         val now = new Date();
         account.setBalance(account.getBalance().add(transaction.getAmount()));
-        account.setLastModified(now);
+        account.setModified(now);
         accountRepository.save(account);
         log.info("DEBIT {} success: {}", transaction, account);
         return transaction;
