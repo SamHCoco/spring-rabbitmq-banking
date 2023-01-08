@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: core-service
+  datasource:
+    schema: classpath:schema.sql
+    url: jdbc:mysql://localhost:3306
+    username: root
+    password: x9Kl_b!tes
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    sql:
+      init:
+        mode: always

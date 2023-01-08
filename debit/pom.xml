@@ -12,5 +12,13 @@
     <groupId>com.samhcoco.projects.spring.rabbitmq.banking</groupId>
     <artifactId>debit</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.samhcoco.projects.spring.rabbitmq.banking</groupId>
+            <artifactId>core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
