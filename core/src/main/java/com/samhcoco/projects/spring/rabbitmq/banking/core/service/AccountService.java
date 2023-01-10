@@ -1,8 +1,6 @@
 package com.samhcoco.projects.spring.rabbitmq.banking.core.service;
 
-import com.samhcoco.projects.spring.rabbitmq.banking.core.model.Account;
-import com.samhcoco.projects.spring.rabbitmq.banking.core.model.User;
-import com.samhcoco.projects.spring.rabbitmq.banking.core.model.TransactionDto;
+import com.samhcoco.projects.spring.rabbitmq.banking.core.model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -12,25 +10,25 @@ public interface AccountService {
 
     /**
      * Credits a {@link User} account with the given {@link TransactionDto}.
-     * @param transaction {@link TransactionDto}.
-     * @return Credited {@link TransactionDto}.
+     * @param transaction {@link CreditTransaction}.
+     * @return Credited {@link CreditTransaction}.
      */
-    TransactionDto credit(TransactionDto transaction);
+    CreditTransaction credit(CreditTransaction transaction);
 
     /**
-     * Transfers the given {@link TransactionDto} amount to another {@link Account}.
-     * @param transaction {@link TransactionDto}.
-     * @return Transfer {@link TransactionDto}.
+     * Transfers the given {@link TransferTransaction} amount to another {@link Account}.
+     * @param transaction {@link TransferTransaction}.
+     * @return Transfer {@link TransferTransaction}.
      */
-    TransactionDto transfer(TransactionDto transaction);
+    TransferTransaction transfer(TransferTransaction transaction);
 
     /**
-     * Validates the given {@link TransactionDto} against the supplied {@link Account} ID.
+     * Validates the given {@link Transaction} against the supplied {@link Account} ID.
      * @param accountId {@link Account} ID.
-     * @param transaction {@link TransactionDto}.
+     * @param transaction {@link Transaction}.
      * @return Failure reasons if validation failed, or empty if passed.
      */
-    Map<String, String> validate(int accountId, TransactionDto transaction);
+    Map<String, String> validate(int accountId, Transaction transaction);
 
     /**
      * Finds and returns {@link Account} with the given {@link Account} IDs.

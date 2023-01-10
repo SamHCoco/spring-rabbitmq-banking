@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @MappedSuperclass
+@ToString(callSuper = true)
 public class Transaction extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

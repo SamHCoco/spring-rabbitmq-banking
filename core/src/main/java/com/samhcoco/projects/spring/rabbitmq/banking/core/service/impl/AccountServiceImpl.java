@@ -1,7 +1,6 @@
 package com.samhcoco.projects.spring.rabbitmq.banking.core.service.impl;
 
-import com.samhcoco.projects.spring.rabbitmq.banking.core.model.Account;
-import com.samhcoco.projects.spring.rabbitmq.banking.core.model.TransactionDto;
+import com.samhcoco.projects.spring.rabbitmq.banking.core.model.*;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.repository.AccountRepository;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.service.AccountService;
 import lombok.NonNull;
@@ -32,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
-    public TransactionDto credit(@NonNull TransactionDto transaction) {
+    public CreditTransaction credit(@NonNull CreditTransaction transaction) {
         val now = new Date();
         transaction.setCreated(now);
         transaction.setModified(now);
@@ -42,11 +41,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public TransactionDto transfer(@NonNull TransactionDto transaction) {
+    public TransferTransaction transfer(@NonNull TransferTransaction transaction) {
         rabbitTemplate.convertAndSend(bankingExchange, transferTransactionQueue, transaction);
 
         log.info("TRANSFER transaction from account ID {} to {} queued via RabbitMQ",
-                transaction.getAccountId(), transaction.getReceivingAccountId());
+                transaction.getAccountId(), transaction.getReceiverAccountId());
 
         return transaction;
     }
@@ -57,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Map<String, String> validate(@NonNull int accountId, @NonNull TransactionDto transaction) {
+    public Map<String, String> validate(@NonNull int accountId, @NonNull Transaction transaction) {
         val failures = new HashMap<String, String>();
         if (accountId != transaction.getAccountId()) {
             failures.put("accountId", "Transaction not associated with correct Account ID.");

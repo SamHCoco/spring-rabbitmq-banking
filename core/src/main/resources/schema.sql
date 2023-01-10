@@ -56,7 +56,6 @@ create table if not exists transfer_transaction(
     receiver_account_id bigint unsigned not null,
     account_id bigint unsigned not null,
     currency_id smallint unsigned not null,
-    exchange_rate decimal(14,10) not null,
     created datetime not null,
     modified datetime not null,
     primary key(id),

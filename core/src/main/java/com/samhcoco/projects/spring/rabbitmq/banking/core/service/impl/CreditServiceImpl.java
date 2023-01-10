@@ -1,10 +1,9 @@
-package com.samhcoco.projects.spring.rabbitmq.banking.credit.service.impl;
+package com.samhcoco.projects.spring.rabbitmq.banking.core.service.impl;
 
 import com.samhcoco.projects.spring.rabbitmq.banking.core.model.CreditTransaction;
-import com.samhcoco.projects.spring.rabbitmq.banking.core.model.Transaction;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.repository.AccountRepository;
-import com.samhcoco.projects.spring.rabbitmq.banking.credit.repository.CreditTransactionRepository;
-import com.samhcoco.projects.spring.rabbitmq.banking.credit.service.CreditService;
+import com.samhcoco.projects.spring.rabbitmq.banking.core.repository.CreditTransactionRepository;
+import com.samhcoco.projects.spring.rabbitmq.banking.core.service.CreditService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,12 +53,7 @@ public class CreditServiceImpl implements CreditService {
         return transaction;
     }
 
-    /**
-     * Validates that a debit operation can be completed with the given {@link Transaction}.
-     * @param transaction {@link Transaction}.
-     * @return Failures reasons, or empty if validation passed.
-     */
-    private Map<String, String> validate(@NonNull Transaction transaction) {
+    public Map<String, String> validate(@NonNull CreditTransaction transaction) {
         val failures = new HashMap<String, String>();
 
         val id = transaction.getId();

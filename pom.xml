@@ -22,7 +22,8 @@
 	<artifactId>banking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>banking</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Sandbox project for exploring RabbitMQ features
+		(simulates a banking application)</description>
 
 	<properties>
 		<java.version>11</java.version>
