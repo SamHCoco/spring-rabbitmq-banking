@@ -19,8 +19,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
-    @Value("${queue.debit-transaction}")
-    private String debitTransactionQueue;
+    @Value("${queue.credit-transaction}")
+    private String creditTransactionQueue;
 
     @Value("${queue.transfer-transaction}")
     private String transferTransactionQueue;
@@ -32,12 +32,12 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
-    public TransactionDto debit(@NonNull TransactionDto transaction) {
+    public TransactionDto credit(@NonNull TransactionDto transaction) {
         val now = new Date();
         transaction.setCreated(now);
         transaction.setModified(now);
-        rabbitTemplate.convertAndSend(bankingExchange, debitTransactionQueue, transaction);
-        log.info("DEBIT transaction for account ID {} queued via RabbitMQ.", transaction.getAccountId());
+        rabbitTemplate.convertAndSend(bankingExchange, creditTransactionQueue, transaction);
+        log.info("CREDIT transaction for account ID {} queued via RabbitMQ.", transaction.getAccountId());
         return transaction;
     }
 

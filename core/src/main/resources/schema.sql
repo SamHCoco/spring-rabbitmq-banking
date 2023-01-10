@@ -1,4 +1,4 @@
-drop database if exists `spring-rabbitmq-banking`; -- todo - remove
+drop database if exists `spring-rabbitmq-banking`;
 
 create database if not exists `spring-rabbitmq-banking`;
 
@@ -35,7 +35,7 @@ create table if not exists currency(
     constraint uc_currency unique(country, code, number)
 );
 
-create table if not exists debit_transaction(
+create table if not exists credit_transaction(
     id bigint unsigned auto_increment not null,
     amount decimal(10, 2) not null,
     account_id bigint unsigned not null,
@@ -44,9 +44,9 @@ create table if not exists debit_transaction(
     created datetime not null,
     modified datetime not null,
     primary key(id),
-    constraint fk_currency_debit_transaction foreign key (currency_id) references currency(id)
+    constraint fk_currency_credit_transaction foreign key (currency_id) references currency(id)
     on update CASCADE,
-    constraint fk_account_debit_transaction foreign key (account_id) references account(id)
+    constraint fk_account_credit_transaction foreign key (account_id) references account(id)
     on update CASCADE
 );
 

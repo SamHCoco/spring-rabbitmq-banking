@@ -7,7 +7,7 @@
     <modules>
         <module>account</module>
 		<module>transfer</module>
-        <module>debit</module>
+        <module>credit</module>
 		<module>core</module>
 	</modules>
 
@@ -17,6 +17,7 @@
 		<version>2.7.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.samhcoco.projects.spring.rabbitmq</groupId>
 	<artifactId>banking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -85,6 +86,32 @@
 			<version>${apache.commons.version}</version>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<optional>true</optional>
+				<version>${lombok.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+				<version>${hibernate.jpa.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${apache.commons.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>

@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "debit_transaction")
-public class DebitTransaction extends Transaction {
+@Table(name = "credit_transaction")
+public class CreditTransaction extends Transaction {
 
     @Column(name = "exchange_rate")
     private BigDecimal exchangeRate;

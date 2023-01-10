@@ -2,7 +2,7 @@ server:
   port: 9003
 
 queue:
-  debit-transaction: debit-transaction-queue
+  credit-transaction: credit-transaction-queue
   transfer-transaction: transfer-transaction-queue
 exchange:
   banking: banking-exchange

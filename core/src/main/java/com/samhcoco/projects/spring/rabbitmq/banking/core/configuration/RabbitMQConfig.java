@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 public class RabbitMQConfig {
 
-    @Value("${queue.debit-transaction}")
-    private String debitTransactionQueue;
+    @Value("${queue.credit-transaction}")
+    private String creditTransactionQueue;
 
     @Value("${queue.transfer-transaction}")
     private String transferTransactionQueue;
@@ -23,9 +23,9 @@ public class RabbitMQConfig {
     @Value("${exchange.banking}")
     private String bankingExchange;
 
-    @Bean(name = "debitTransactionQueue")
+    @Bean(name = "creditTransactionQueue")
     public Queue debitTransactionQueue() {
-        return new Queue(debitTransactionQueue);
+        return new Queue(creditTransactionQueue);
     }
 
     @Bean(name = "transferTransactionQueue")
@@ -43,12 +43,12 @@ public class RabbitMQConfig {
         return new Jackson2JsonMessageConverter();
     }
 
-    @Bean(name = "debitQueueBinding")
-    public Binding debitQueueBinding() {
-        return new Binding(debitTransactionQueue,
+    @Bean(name = "creditQueueBinding")
+    public Binding creditQueueBinding() {
+        return new Binding(creditTransactionQueue,
                 Binding.DestinationType.QUEUE,
                 bankingExchange,
-                debitTransactionQueue,
+                creditTransactionQueue,
                 null);
     }
 

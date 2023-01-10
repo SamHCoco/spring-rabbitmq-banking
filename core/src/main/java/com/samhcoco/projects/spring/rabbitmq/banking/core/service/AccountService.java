@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface AccountService {
 
-    TransactionDto debit(TransactionDto transaction);
+    TransactionDto credit(TransactionDto transaction);
 
     TransactionDto transfer(TransactionDto transaction);
 

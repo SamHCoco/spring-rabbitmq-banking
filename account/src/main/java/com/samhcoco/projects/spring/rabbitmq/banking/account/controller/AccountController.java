@@ -17,7 +17,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping("{accountId}/debit")
+    @PostMapping("{accountId}/credit")
     public ResponseEntity<Object> debit(@PathVariable Integer accountId,
                                         @RequestBody TransactionDto transaction) {
         val failures = accountService.validate(accountId, transaction);
@@ -27,7 +27,7 @@ public class AccountController {
         }
 
         try {
-            return new ResponseEntity<>(accountService.debit(transaction), OK);
+            return new ResponseEntity<>(accountService.credit(transaction), OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), INTERNAL_SERVER_ERROR);
         }

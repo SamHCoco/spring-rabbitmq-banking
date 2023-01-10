@@ -1,10 +1,10 @@
-package com.samhcoco.projects.spring.rabbitmq.banking.debit.service.impl;
+package com.samhcoco.projects.spring.rabbitmq.banking.credit.service.impl;
 
-import com.samhcoco.projects.spring.rabbitmq.banking.core.model.DebitTransaction;
+import com.samhcoco.projects.spring.rabbitmq.banking.core.model.CreditTransaction;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.model.Transaction;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.repository.AccountRepository;
-import com.samhcoco.projects.spring.rabbitmq.banking.debit.repository.DebitTransactionRepository;
-import com.samhcoco.projects.spring.rabbitmq.banking.debit.service.DebitService;
+import com.samhcoco.projects.spring.rabbitmq.banking.credit.repository.CreditTransactionRepository;
+import com.samhcoco.projects.spring.rabbitmq.banking.credit.service.CreditService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +22,14 @@ import static java.util.Objects.isNull;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DebitServiceImpl implements DebitService {
+public class CreditServiceImpl implements CreditService {
 
     private final AccountRepository accountRepository;
-    private final DebitTransactionRepository debitTransactionRepository;
+    private final CreditTransactionRepository creditTransactionRepository;
 
     @Override
     @Transactional
-    public DebitTransaction debitAccount(@NonNull DebitTransaction transaction) {
+    public CreditTransaction creditAccount(@NonNull CreditTransaction transaction) {
         val failures = validate(transaction);
         if (!failures.isEmpty()) {
             log.error("DEBIT {} failed - reasons: {}", transaction, failures);
@@ -38,7 +38,7 @@ public class DebitServiceImpl implements DebitService {
 
         // todo - add api call to fetch exchange rage
         transaction.setExchangeRate(new BigDecimal("1.00"));
-        debitTransactionRepository.save(transaction);
+        creditTransactionRepository.save(transaction);
 
         val account = accountRepository.findById(transaction.getAccountId());
         if (isNull(account)) {
@@ -63,7 +63,7 @@ public class DebitServiceImpl implements DebitService {
         val failures = new HashMap<String, String>();
 
         val id = transaction.getId();
-        if (debitTransactionRepository.existsById(id) && id != 0) {
+        if (creditTransactionRepository.existsById(id) && id != 0) {
             failures.put("id", String.format("Debit transaction with ID '%s' already exists.", transaction.getId()));
         }
 
