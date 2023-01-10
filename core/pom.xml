@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.samhcoco.projects.spring.rabbitmq.banking</groupId>
     <artifactId>core</artifactId>
+    <packaging>jar</packaging>
 
 
 </project>

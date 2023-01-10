@@ -14,11 +14,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.samhcoco.projects.spring.rabbitmq.banking</groupId>
+            <groupId>com.samhcoco.projects.spring.rabbitmq</groupId>
             <artifactId>core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
 
 </project>
