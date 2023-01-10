@@ -7,6 +7,8 @@ import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static java.lang.String.format;
+import static java.util.Objects.isNull;
 import static org.springframework.http.HttpStatus.*;
 
 
@@ -18,8 +20,8 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("{accountId}/credit")
-    public ResponseEntity<Object> debit(@PathVariable Integer accountId,
-                                        @RequestBody TransactionDto transaction) {
+    public ResponseEntity<Object> credit(@PathVariable Integer accountId,
+                                         @RequestBody TransactionDto transaction) {
         val failures = accountService.validate(accountId, transaction);
 
         if (!failures.isEmpty()) {
@@ -47,6 +49,15 @@ public class AccountController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("user/{userId}")
+    public ResponseEntity<Object> getAccountByUserId(@PathVariable Integer userId) {
+        val account = accountService.getAccountByUserId(userId);
+        if (isNull(account)) {
+            return new ResponseEntity<>(format("No Account with user ID '%s' exists", userId), NOT_FOUND);
+        }
+        return new ResponseEntity<>(account, OK);
     }
 
 }

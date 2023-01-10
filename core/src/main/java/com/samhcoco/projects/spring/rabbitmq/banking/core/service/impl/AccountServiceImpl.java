@@ -64,4 +64,9 @@ public class AccountServiceImpl implements AccountService {
         }
         return failures;
     }
+
+    @Override
+    public Account getAccountByUserId(@NonNull Integer userId) {
+        return accountRepository.findByUserId(userId);
+    }
 }

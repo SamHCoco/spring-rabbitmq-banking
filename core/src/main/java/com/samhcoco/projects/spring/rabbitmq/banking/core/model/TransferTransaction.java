@@ -6,6 +6,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class TransferTransaction extends Transaction {
-    private int id;
     private int receivingAccountId;
 }
