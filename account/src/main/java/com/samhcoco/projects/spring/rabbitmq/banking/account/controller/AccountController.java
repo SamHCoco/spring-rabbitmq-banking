@@ -1,5 +1,6 @@
 package com.samhcoco.projects.spring.rabbitmq.banking.account.controller;
 
+import com.samhcoco.projects.spring.rabbitmq.banking.account.service.UserAccountService;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.model.CreditTransaction;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.model.TransferTransaction;
 import com.samhcoco.projects.spring.rabbitmq.banking.core.service.AccountService;
@@ -25,6 +26,7 @@ public class AccountController {
     private final AccountService accountService;
     private final CreditService creditService;
     private final TransferService transferService;
+    private final UserAccountService userAccountService;
 
     @PostMapping("{accountId}/credit")
     public ResponseEntity<Object> credit(@PathVariable Integer accountId,
@@ -74,6 +76,15 @@ public class AccountController {
             return new ResponseEntity<>(format("No Account with user ID '%s' exists.", userId), NOT_FOUND);
         }
         return new ResponseEntity<>(account, OK);
+    }
+
+    @GetMapping("user-account/all")
+    public ResponseEntity<Object> getAllUserAccounts() {
+        try {
+            return new ResponseEntity<>(userAccountService.listAll(), OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), OK);
+        }
     }
 
 }
