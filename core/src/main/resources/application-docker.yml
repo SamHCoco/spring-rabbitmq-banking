@@ -1,6 +1,3 @@
-server:
-  port: 9002
-
 queue:
   credit-transaction: credit-transaction-queue
   transfer-transaction: transfer-transaction-queue
@@ -9,14 +6,15 @@ exchange:
 
 spring:
   rabbitmq:
-    host: localhost
-    port: 5672
     username: admin
     password: admin
+    host: rabbitmq
+    port: 5672
   datasource:
-    url: jdbc:mysql://localhost:3306
+    schema: classpath:schema.sql
+    url: jdbc:mysql://mysql-docker:3306
     username: root
-    password: x9Kl_b!tes
+    password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:

@@ -1,0 +1,58 @@
+version: "2.4"
+services:
+  mysql-docker:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "0.0.0.0", "-uroot", "-padmin"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-data/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-data/rabbitmq/log/:/var/log/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics" ,"-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  account-service:
+    image: spring-rabbitmq-banking-account:latest
+    ports:
+      - 9001:9001
+    depends_on:
+      mysql-docker:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+  credit-service:
+    image: spring-rabbitmq-banking-credit:latest
+    ports:
+      - 9002:9002
+    depends_on:
+      mysql-docker:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+  transfer-service:
+    image: spring-rabbitmq-banking-transfer:latest
+    ports:
+      - 9003:9003
+    depends_on:
+      mysql-docker:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
