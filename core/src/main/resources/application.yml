@@ -11,4 +11,4 @@ spring:
       init:
         mode: always
     profiles:
-      active: docker
+      active: dev

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 echo "Building ACCOUNT service Docker image:"
 cd account
 mvn compile jib:dockerBuild
